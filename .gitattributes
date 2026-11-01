@@ -1,0 +1,13 @@
+# 统一换行：源码进仓库一律 LF（gradlew 在 macOS/Linux 上必须可执行）
+* text=auto eol=lf
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制，别做换行转换
+*.apk binary
+*.jar binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.keystore binary

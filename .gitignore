@@ -1,0 +1,16 @@
+# 构建产物
+/app/build/
+/build/
+.gradle/
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# 机器相关（各自配自己的 SDK 路径）
+local.properties
+
+# 系统
+.DS_Store
+Thumbs.db

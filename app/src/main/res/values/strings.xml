@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">花椒日历</string>
+    <string name="widget_desc">今日课程 · 一眼看到今天上什么课</string>
+</resources>

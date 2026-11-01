@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 小组件里的一行课：色条 + 时间 + 课程名 + 地点 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp">
+
+    <ImageView
+        android:id="@+id/row_bar"
+        android:layout_width="3dp"
+        android:layout_height="15dp"
+        android:background="#2F6BF5"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/row_time"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="#6B7280"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/row_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#16181D"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/row_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxWidth="112dp"
+        android:textColor="#A0A6B0"
+        android:textSize="11sp" />
+
+</LinearLayout>

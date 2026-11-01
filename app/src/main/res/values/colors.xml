@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 页面浅色底，和网页版 CSS 的背景色保持一致，避免启动瞬间闪白 -->
+    <color name="window_bg">#F2F3F5</color>
+    <color name="ic_launcher_bg">#254ED6</color>
+</resources>
