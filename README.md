@@ -37,7 +37,7 @@
 app/src/main/assets/index.html     前端全部代码（自制模块系统，单文件）
 app/src/main/java/.../             安卓壳：WebView、桥、闹钟、小组件、ContentProvider
 app/src/main/res/                  资源：小组件布局、图标、主题
-apk/                               已签名的安装包（2.2 最新，old/ 里是历史版本）
+apk/                               已签名的安装包（仅保留 2.2）
 README.txt                         详细说明：每个功能的实现取舍、已知限制、常见问题
 ```
 
@@ -45,4 +45,4 @@ README.txt                         详细说明：每个功能的实现取舍、
 
 - 非官方应用，课表数据来自学校教务的微信端接口，接口随时可能变；变了要改的是前端里的 parser。
 - 只在本机保存 weiXinID 和课表缓存，提醒、小组件、导出的日历都不上传。
-- 用 Android Debug 证书签名，能直接
+- 用 Android Debug 证书签名，能直接装、能发同学，但不能上架应用市场。
