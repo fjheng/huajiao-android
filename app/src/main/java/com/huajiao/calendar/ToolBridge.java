@@ -102,6 +102,24 @@ public class ToolBridge {
         });
     }
 
+    /** 用系统浏览器打开外链（设置页的 GitHub 主页）；只放行 http(s) */
+    @JavascriptInterface
+    public void openUrl(String url) {
+        if (url == null) return;
+        Uri uri = Uri.parse(url);
+        String scheme = uri.getScheme();
+        if (!"http".equals(scheme) && !"https".equals(scheme)) return;
+        activity.runOnUiThread(() -> {
+            try {
+                Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity.startActivity(i);
+            } catch (Exception e) {
+                toast("没有可用的浏览器");
+            }
+        });
+    }
+
     /** [{"at":毫秒,"name":"","time":"","location":""}] */
     @JavascriptInterface
     public String schedule(String json) {

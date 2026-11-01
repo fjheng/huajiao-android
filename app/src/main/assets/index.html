@@ -2298,6 +2298,7 @@ const icon = {
   export: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v10"/><path d="M8.4 10.2 12 13.8l3.6-3.6"/><path d="M4.5 15.5v3.2a1.8 1.8 0 0 0 1.8 1.8h11.4a1.8 1.8 0 0 0 1.8-1.8v-3.2"/></svg>`,
   download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7.5 10.8 12 15.3l4.5-4.5"/><path d="M5 19.5h14"/></svg>`,
   moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.5 8.5 0 1 0 20 14.2z"/></svg>`,
+  github: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.1c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.41-5.26 5.69.41.36.78 1.07.78 2.16v3.2c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>`,
 };
 
 /* ===== lib/theme.js ===== */
@@ -3857,6 +3858,21 @@ const native = {
     call('openExactSettings');
   },
 
+  /** 用系统浏览器打开外链（设置页的 GitHub 主页），返回是否交出去了 */
+  openUrl(url) {
+    if (!url) return false;
+    if (bridge()) {
+      call('openUrl', String(url));
+      return true;
+    }
+    try {
+      window.open(String(url), '_blank');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+
   /** list: [{at: 毫秒时间戳, name, time, location}] → {ok, count} */
   schedule(list) {
     return parse(call('schedule', JSON.stringify(list || [])), { ok: false, count: 0 });
@@ -5183,7 +5199,10 @@ __mods["academic"] = { mount };
 (function () {
 /** 设置页 */
 const { store } = __mods["store"];
+const { native } = __mods["native"];
 const { icon, escapeHtml, layout, toast } = __mods["ui"];
+
+const GITHUB_URL = 'https://github.com/fjheng/huajiao-android';
 
 function maskId(id) {
   if (!id) return '未绑定';
@@ -5262,7 +5281,7 @@ function mount(root, ctx) {
               <div class="li-main">
                 <div class="li-title">版本</div>
               </div>
-              <span class="li-value">安卓版 2.0</span>
+              <span class="li-value">安卓版 2.2</span>
             </div>
           </div>
         </div>
@@ -5275,6 +5294,19 @@ function mount(root, ctx) {
                 <div class="li-title">解除绑定并清空数据</div>
                 <div class="li-desc">卸载应用前建议先执行</div>
               </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="list">
+            <button class="list-item" id="github">
+              <span class="li-ico" style="background:var(--surface-2);color:var(--text)">${icon.github}</span>
+              <div class="li-main">
+                <div class="li-title">GitHub 项目主页</div>
+                <div class="li-desc">github.com/fjheng/huajiao-android</div>
+              </div>
+              <span class="chev">${icon.right}</span>
             </button>
           </div>
         </div>
@@ -5326,6 +5358,15 @@ function mount(root, ctx) {
 
   root.querySelector('#rebind').addEventListener('click', () => {
     location.hash = '#/bind';
+  });
+
+  // 外链一律交给系统浏览器：WebView 里打开会没有地址栏也没有返回键
+  root.querySelector('#github').addEventListener('click', () => {
+    if (!native.openUrl(GITHUB_URL)) {
+      toast('没打开浏览器，手动访问 ' + GITHUB_URL);
+      return;
+    }
+    toast('正在打开 GitHub…');
   });
 
   root.querySelector('#unbind').addEventListener('click', () => {

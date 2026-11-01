@@ -2,6 +2,7 @@ package com.huajiao.calendar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Insets;
@@ -202,6 +203,32 @@ public class MainActivity extends Activity {
         @SuppressWarnings("deprecation")
         public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
             return intercept(url);
+        }
+
+        /** 页面里的外链（GitHub、教务说明页等）交给系统浏览器，别在 WebView 里跑丢 */
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            return openOutside(request.getUrl().toString());
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return openOutside(url);
+        }
+    }
+
+    /** 只有自家虚拟源站留在 WebView，其余 http(s) 一律甩给系统浏览器 */
+    private boolean openOutside(String url) {
+        if (url == null || url.startsWith(BASE_URL)) return false;
+        Uri uri = Uri.parse(url);
+        String scheme = uri.getScheme();
+        if (!"http".equals(scheme) && !"https".equals(scheme)) return false;
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

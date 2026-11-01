@@ -10,8 +10,8 @@ android {
         applicationId = "com.huajiao.calendar"
         minSdk = 24
         targetSdk = 35
-        versionCode = 7
-        versionName = "2.1"
+        versionCode = 8
+        versionName = "2.2"
     }
 
     buildTypes {

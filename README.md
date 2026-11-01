@@ -3,7 +3,7 @@
 学校教务课表的第三方客户端。WebView 壳 + 单文件前端（`app/src/main/assets/index.html`），
 **零第三方依赖**：不引 androidx，网络用 `HttpURLConnection`，`FileProvider` 自己实现了替代品。
 
-当前版本 **2.1**（versionCode 7，minSdk 24 / targetSdk 35）。
+当前版本 **2.2**（versionCode 8，minSdk 24 / targetSdk 35）。
 
 ## 功能
 
@@ -37,7 +37,7 @@
 app/src/main/assets/index.html     前端全部代码（自制模块系统，单文件）
 app/src/main/java/.../             安卓壳：WebView、桥、闹钟、小组件、ContentProvider
 app/src/main/res/                  资源：小组件布局、图标、主题
-apk/                               已签名的安装包（2.1 最新，old/ 里是历史版本）
+apk/                               已签名的安装包（2.2 最新，old/ 里是历史版本）
 README.txt                         详细说明：每个功能的实现取舍、已知限制、常见问题
 ```
 
